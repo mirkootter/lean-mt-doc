@@ -1,0 +1,1 @@
+{"name":"Mt.Utils","instances":[],"imports":["Init","Mt.Utils.List","Mt.Utils.Nat"],"declarations":[{"sourceLink":"https://github.com/mirkootter/lean-mt/blob/027a16555d487e46a0a00611b8039655378dfdd5/Mt/Utils.lean#L6-L11","name":"Mt.Utils.forall_ext","docLink":"./Mt/Utils.html#Mt.Utils.forall_ext","doc":""}]}

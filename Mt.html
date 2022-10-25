@@ -1,0 +1,65 @@
+<html lang="en"><head><meta charset="UTF-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta><link rel="stylesheet" href="./style.css"></link><link rel="stylesheet" href="./src/pygments.css"></link><link rel="shortcut icon" href="./favicon.ico"></link><link rel="prefetch" href=".//declarations/declaration-data.bmp" as="image"></link><title>Mt</title><script defer="true" src="./mathjax-config.js"></script><script defer="true" src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script defer="true" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><script>const SITE_ROOT="./";</script><script>const MODULE_NAME="Mt";</script><script type="module" src="./nav.js"></script><script type="module" src="./search.js"></script><script type="module" src="./how-about.js"></script><script type="module" src="./instances.js"></script><script type="module" src="./importedBy.js"></script></head><body><input id="nav_toggle" type="checkbox"></input><header><h1><label for="nav_toggle"></label>Documentation</h1><p class="header_filename break_within">Mt</p><form action="https://google.com/search" method="get" id="search_form"><input type="hidden" name="sitesearch" value="https://leanprover-community.github.io/mathlib_docs"></input><input type="text" name="q" autocomplete="off"></input><button>Google site search</button></form></header><nav class="internal_nav"><h3><a class="break_within" href="#top">Mt</a></h3><p class="gh_nav_link"><a href="https://github.com/mirkootter/lean-mt/blob/027a16555d487e46a0a00611b8039655378dfdd5/Mt.lean">source</a></p><div class="imports"><details><summary>Imports</summary><ul><li><a href="./Init.html">Init</a></li><li><a href="./Mt/System.html">Mt.System</a></li><li><a href="./Mt/Task.html">Mt.Task</a></li></ul></details><details><summary>Imported by</summary><ul id="imported-by-Mt" class="imported-by-list"></ul></details></div></nav><main>
+<div class="mod_doc"><h1 class="markdown-heading" id="Mt-Reasoning-about-multithreaded-algorithms">Mt: Reasoning about multithreaded algorithms <a class="hover-link" href="#Mt-Reasoning-about-multithreaded-algorithms">#</a></h1><p>This framework allows reasoning about multithreaded algorithms.
+Both blocking and non blocking algorithms are supported.</p><p>We provide types to describe systems as a list of threads
+and to describe threads using monadic code. The monad <code><a href="./Mt/Task/Basic.html#Mt.TaskM">Mt.TaskM</a></code>
+allows side effects like modifying shared memory.</p><p>Our goal is to reason about multithreaded systems by decoupling
+the threads from each other. We reformulate the problem in a
+way such that it is to possible to reason about one thread at a
+time, almost as in the single threaded case.</p><p>Basic idea: To decouple threads from each other, we have to
+specify some rules. We have to prove that all threads follow
+those rules, but we can do this one thread at a time, line by
+line. After each atomic step, the other threads may become active
+and change the shared memory. But they follow the same rules,
+and we do not need to know anything else about them. We have
+to assume that any of the allowed modifications has happened,
+but if we still succeed in proving our goal, our thread behaves
+correctly completly independent of the implementation of the
+other threads.</p><h3 class="markdown-heading" id="High-level-overview">High level overview <a class="hover-link" href="#High-level-overview">#</a></h3><ul>
+<li><code><a href="./Mt/Task/Basic.html#Mt.TaskM">Mt.TaskM</a></code>: A monad to represent single threaded code which
+can be iterated one time step at a time. There are primitives
+for atomic operations like read-modify or assertions.</li>
+<li><code><a href="./Mt/Thread/Basic.html#Mt.Thread">Mt.Thread</a></code>: Represents a single thread. It provides
+<ul>
+<li>the code to be executed (see <code><a href="./Mt/Task/Basic.html#Mt.TaskM">Mt.TaskM</a></code>)</li>
+<li>a blocking predicate: The thread will sleep until this
+predicates returns <code>true</code></li>
+</ul>
+</li>
+<li><code><a href="./Mt/System/Basic.html#Mt.System">Mt.System</a></code>: Represents a system consisting of
+<ul>
+<li>the shared state (shared memory) used by all threads</li>
+<li>a list of active threads</li>
+<li>a counter how many threads have panicked</li>
+</ul>
+</li>
+<li><code><a href="./Mt/Reservation.html#Mt.Spec">Mt.Spec</a></code>: The specification precisely specifies the
+context and the required behaviour for threads. For example,
+it describes the type of the shared memory for threads and
+the invariants which all threads must enforce. Only threads
+with the same specification can be run in parallel.</li>
+<li><code><a href="./Mt/Reservation.html">Mt.Reservation</a></code>: Reservations are thread local guarantees
+that must be considered by all threads. An active thread
+may create, modify or drop its reservations as long as the
+resulting state does not violate the specification.
+Examples:
+<ul>
+<li>Mutex. Only one thread a time may "reserve" it.</li>
+<li>Semaphore. Only a limited number of threads may have
+a reservation for this semaphore.</li>
+<li>Lower bound on a number in the shared memory. This
+effectly enforces the rule that this number must never be
+decreased by a thread, because another thread may have
+reserved a lower bound on it which could be broken.</li>
+</ul>
+</li>
+<li><code><a href="./Mt/System/Validation.html#Mt.System.fundamental_validation_theorem">Mt.System.fundamental_validation_theorem</a></code>: The main theorem
+provided by this framework. It allows the decoupling of the
+threads. It states that a system is valid if:
+<ul>
+<li>it is valid at the current moment, i.e. the initial state
+is valid</li>
+<li>all of its threads are valid (see <code><a href="./Mt/Thread/Basic.html#Mt.Thread.valid">Mt.Thread.valid</a></code>)</li>
+</ul>
+</li>
+</ul></div></main>
+<nav class="nav"><iframe src=".//navbar.html" class="navframe" frameBorder="0"></iframe></nav></body></html>

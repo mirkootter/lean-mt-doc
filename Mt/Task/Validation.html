@@ -1,0 +1,176 @@
+<html lang="en"><head><meta charset="UTF-8"></meta><meta name="viewport" content="width=device-width, initial-scale=1"></meta><link rel="stylesheet" href="../.././style.css"></link><link rel="stylesheet" href="../.././src/pygments.css"></link><link rel="shortcut icon" href="../.././favicon.ico"></link><link rel="prefetch" href="../.././/declarations/declaration-data.bmp" as="image"></link><title>Mt.Task.Validation</title><script defer="true" src="../.././mathjax-config.js"></script><script defer="true" src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script defer="true" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script><script>const SITE_ROOT="../.././";</script><script>const MODULE_NAME="Mt.Task.Validation";</script><script type="module" src="../.././nav.js"></script><script type="module" src="../.././search.js"></script><script type="module" src="../.././how-about.js"></script><script type="module" src="../.././instances.js"></script><script type="module" src="../.././importedBy.js"></script></head><body><input id="nav_toggle" type="checkbox"></input><header><h1><label for="nav_toggle"></label>Documentation</h1><p class="header_filename break_within">Mt.Task.Validation</p><form action="https://google.com/search" method="get" id="search_form"><input type="hidden" name="sitesearch" value="https://leanprover-community.github.io/mathlib_docs"></input><input type="text" name="q" autocomplete="off"></input><button>Google site search</button></form></header><nav class="internal_nav"><h3><a class="break_within" href="#top">Mt.Task.Validation</a></h3><p class="gh_nav_link"><a href="https://github.com/mirkootter/lean-mt/blob/027a16555d487e46a0a00611b8039655378dfdd5/Mt/Task/Validation.lean">source</a></p><div class="imports"><details><summary>Imports</summary><ul><li><a href="../.././Init.html">Init</a></li><li><a href="../.././Mt/Reservation.html">Mt.Reservation</a></li><li><a href="../.././Mt/Task/Basic.html">Mt.Task.Basic</a></li></ul></details><details><summary>Imported by</summary><ul id="imported-by-Mt.Task.Validation" class="imported-by-list"></ul></details></div><div class="nav_link"><a class="break_within" href="#Mt.TaskM.instIsReservationReservation">Mt.TaskM.instIsReservationReservation</a></div><div class="nav_link"><a class="break_within" href="#Mt.TaskM.valid">Mt.TaskM.valid</a></div><div class="nav_link"><a class="break_within" href="#Mt.TaskM.valid_pure">Mt.TaskM.valid_pure</a></div><div class="nav_link"><a class="break_within" href="#Mt.TaskM.valid_bind">Mt.TaskM.valid_bind</a></div><div class="nav_link"><a class="break_within" href="#Mt.TaskM.valid_rmr">Mt.TaskM.valid_rmr</a></div><div class="nav_link"><a class="break_within" href="#Mt.TaskM.valid_rm">Mt.TaskM.valid_rm</a></div><div class="nav_link"><a class="break_within" href="#Mt.TaskM.valid_read">Mt.TaskM.valid_read</a></div><div class="nav_link"><a class="break_within" href="#Mt.TaskM.valid_assert">Mt.TaskM.valid_assert</a></div><div class="nav_link"><a class="break_within" href="#Mt.TaskM.valid_blocking_rmr">Mt.TaskM.valid_blocking_rmr</a></div></nav><main>
+<div class="decl" id="Mt.TaskM.instIsReservationReservation"><div class="def"><div class="gh_link"><a href="https://github.com/mirkootter/lean-mt/blob/027a16555d487e46a0a00611b8039655378dfdd5/Mt/Task/Validation.lean#L7-L7">source</a></div><div class="ink_link"><a href="../.././src/Mt/Task/Validation.html#Mt.TaskM.instIsReservationReservation">ink</a></div><div class="decl_header"><span class="decl_kind">def</span>
+<span class="decl_name"><a class="break_within" href="../.././Mt/Task/Validation.html#Mt.TaskM.instIsReservationReservation">Mt.TaskM.instIsReservationReservation</a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{spec : <a href="../.././Mt/Reservation.html#Mt.Spec">Mt.Spec</a>}</span></span>
+</span><span class="decl_args"> :</span><div class="decl_type"><span class="fn"><a href="../.././Mt/Reservation.html#Mt.IsReservation">Mt.IsReservation</a> <span class="fn"><span class="fn">spec</span>.Reservation</span></span></div></div><details><summary>Equations</summary><ul class="equations"><li class="equation"><span class="fn"><span class="fn">Mt.TaskM.instIsReservationReservation</span> <a href="../.././Init/Prelude.html#Eq">=</a> <span class="fn"><span class="fn">spec</span>.is_reservation</span></span></li></ul></details></div></div><div class="decl" id="Mt.TaskM.valid"><div class="def"><div class="gh_link"><a href="https://github.com/mirkootter/lean-mt/blob/027a16555d487e46a0a00611b8039655378dfdd5/Mt/Task/Validation.lean#L45-L58">source</a></div><div class="ink_link"><a href="../.././src/Mt/Task/Validation.html#Mt.TaskM.valid">ink</a></div><div class="decl_header"><span class="decl_kind">def</span>
+<span class="decl_name"><a class="break_within" href="../.././Mt/Task/Validation.html#Mt.TaskM.valid">Mt.TaskM.valid</a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{spec : <a href="../.././Mt/Reservation.html#Mt.Spec">Mt.Spec</a>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{T : <span class="fn">Type</span>}</span></span>
+</span><span class="decl_args">
+<span class="fn">(p : <span class="fn"><a href="../.././Mt/Task/Basic.html#Mt.TaskM">Mt.TaskM</a> <span class="fn">spec</span> <span class="fn">T</span></span>)</span></span>
+<span class="decl_args">
+<span class="fn">(r : <span class="fn"><span class="fn">spec</span>.Reservation</span>)</span></span>
+<span class="decl_args">
+<span class="fn">(assuming : <span class="fn"><span class="fn"><span class="fn">spec</span>.State</span> → <a href="../.././Init/Prelude.html#Bool">Bool</a></span>)</span></span>
+<span class="decl_args">
+<span class="fn">(motive : <span class="fn"><span class="fn">T</span> → <span class="fn"><span class="fn"><span class="fn">spec</span>.Reservation</span> → <span class="fn">Prop</span></span></span>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn">Prop</span></div></div><p>Validation primitive for reasoning for composable tasks.</p><p>Validation may assume <code>assuming</code> and must ensure the following:</p><ul>
+<li>The task has to behave conform to the specification at all times</li>
+<li>The task never panics</li>
+<li>Finally, <code>motive</code> holds after the task completes</li>
+</ul><h3 class="markdown-heading" id="Proving-valid">Proving <code><a href="../.././Mt/Task/Validation.html#Mt.TaskM.valid">valid</a></code> <a class="hover-link" href="#Proving-valid">#</a></h3><p>The definition is rather cumbersome to work with. You should use
+helper theorems like <code><a href="../.././Mt/Task/Validation.html#Mt.TaskM.valid_pure">valid_pure</a></code>, <code><a href="../.././Mt/Task/Validation.html#Mt.TaskM.valid_bind">valid_bind</a></code>, <code><a href="../.././Mt/Task/Validation.html#Mt.TaskM.valid_rmr">valid_rmr</a></code>, ...</p><p>They are designed to be used with the <code>apply</code> tactic.</p><h3 class="markdown-heading" id="Blocking-predicate-assuming">Blocking predicate: <code>assuming</code> <a class="hover-link" href="#Blocking-predicate-assuming">#</a></h3><p>When validating our task, we can assume <code>assuming state = true</code>. However,
+in most cases we have <code>assuming = λ _ => true</code>, i.e. our hypothesis does
+not provide anything useful.</p><p>There is one important exception: Blocking threads. If a thread
+waits for a certain condition before it continues its task, we can
+safely assume that this condition holds when the task is excuting.</p><h3 class="markdown-heading" id="Final-goal-motive">Final goal: <code>motive</code> <a class="hover-link" href="#Final-goal-motive">#</a></h3><p>A valid thread must drop its reservations in the end. Therefore, the
+final goal on those tasks is <code>λ _ r => r = IsReservation.empty</code>.
+However, intermediate tasks (i.e. single operations) do not need to
+share this goal.</p><p>In fact, they usally do not. If one operation
+prepares the next operation, it usually creates some reservation to
+ensure that no other thread undos this preparation. In this example,
+the motive should encode that the preparation has been made.</p><p><code>motive</code> is the only way to pass facts from one iteration to the next.
+See <code><a href="../.././Mt/Task/Validation.html#Mt.TaskM.valid_bind">valid_bind</a></code> for more information.</p><details><summary>Equations</summary><ul class="equations"><li class="equation">One or more equations did not get rendered due to their size.</li></ul></details></div></div><div class="decl" id="Mt.TaskM.valid_pure"><div class="theorem"><div class="gh_link"><a href="https://github.com/mirkootter/lean-mt/blob/027a16555d487e46a0a00611b8039655378dfdd5/Mt/Task/Validation.lean#L61-L66">source</a></div><div class="ink_link"><a href="../.././src/Mt/Task/Validation.html#Mt.TaskM.valid_pure">ink</a></div><div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a class="break_within" href="../.././Mt/Task/Validation.html#Mt.TaskM.valid_pure">Mt.TaskM.valid_pure</a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{spec : <a href="../.././Mt/Reservation.html#Mt.Spec">Mt.Spec</a>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{T : <span class="fn">Type</span>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{t : <span class="fn">T</span>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{r : <span class="fn"><span class="fn">spec</span>.Reservation</span>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{assuming : <span class="fn"><span class="fn"><span class="fn">spec</span>.State</span> → <a href="../.././Init/Prelude.html#Bool">Bool</a></span>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{motive : <span class="fn"><span class="fn">T</span> → <span class="fn"><span class="fn"><span class="fn">spec</span>.Reservation</span> → <span class="fn">Prop</span></span></span>}</span></span>
+</span><span class="decl_args">
+<span class="fn">(is_valid : <span class="fn"><span class="fn">motive</span> <span class="fn">t</span> <span class="fn">r</span></span>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn"><a href="../.././Mt/Task/Validation.html#Mt.TaskM.valid">Mt.TaskM.valid</a> (<span class="fn"><a href="../.././Init/Prelude.html#Pure.pure">pure</a> <span class="fn">t</span></span>) <span class="fn">r</span> <span class="fn">assuming</span> <span class="fn">motive</span></span></div></div><p>To prove that <code>pure t</code> is valid you need to prove that the <code>motive</code> holds</p></div></div><div class="decl" id="Mt.TaskM.valid_bind"><div class="theorem"><div class="gh_link"><a href="https://github.com/mirkootter/lean-mt/blob/027a16555d487e46a0a00611b8039655378dfdd5/Mt/Task/Validation.lean#L80-L108">source</a></div><div class="ink_link"><a href="../.././src/Mt/Task/Validation.html#Mt.TaskM.valid_bind">ink</a></div><div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a class="break_within" href="../.././Mt/Task/Validation.html#Mt.TaskM.valid_bind">Mt.TaskM.valid_bind</a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{spec : <a href="../.././Mt/Reservation.html#Mt.Spec">Mt.Spec</a>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{U : <span class="fn">Type</span>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{V : <span class="fn">Type</span>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{mu : <span class="fn"><a href="../.././Mt/Task/Basic.html#Mt.TaskM">Mt.TaskM</a> <span class="fn">spec</span> <span class="fn">U</span></span>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{f : <span class="fn"><span class="fn">U</span> → <span class="fn"><a href="../.././Mt/Task/Basic.html#Mt.TaskM">Mt.TaskM</a> <span class="fn">spec</span> <span class="fn">V</span></span></span>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{r : <span class="fn"><span class="fn">spec</span>.Reservation</span>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{assuming : <span class="fn"><span class="fn"><span class="fn">spec</span>.State</span> → <a href="../.././Init/Prelude.html#Bool">Bool</a></span>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{motive : <span class="fn"><span class="fn">V</span> → <span class="fn"><span class="fn"><span class="fn">spec</span>.Reservation</span> → <span class="fn">Prop</span></span></span>}</span></span>
+</span><span class="decl_args">
+<span class="fn">(motive_u : <span class="fn"><span class="fn">U</span> → <span class="fn"><span class="fn"><span class="fn">spec</span>.Reservation</span> → <span class="fn">Prop</span></span></span>)</span></span>
+<span class="decl_args">
+<span class="fn">(mu_valid : <span class="fn"><a href="../.././Mt/Task/Validation.html#Mt.TaskM.valid">Mt.TaskM.valid</a> <span class="fn">mu</span> <span class="fn">r</span> <span class="fn">assuming</span> <span class="fn">motive_u</span></span>)</span></span>
+<span class="decl_args">
+<span class="fn">(f_valid : <span class="fn">∀ (<span class="fn">r'</span> : <span class="fn"><span class="fn">spec</span>.Reservation</span>) (<span class="fn">u</span> : <span class="fn">U</span>), <span class="fn"><span class="fn"><span class="fn">motive_u</span> <span class="fn">u</span> <span class="fn">r'</span></span> → <span class="fn"><a href="../.././Mt/Task/Validation.html#Mt.TaskM.valid">Mt.TaskM.valid</a> (<span class="fn"><span class="fn">f</span> <span class="fn">u</span></span>) <span class="fn">r'</span> (<span class="fn">fun <span class="fn">x</span> =&gt <a href="../.././Init/Prelude.html#Bool.true">true</a></span>) <span class="fn">motive</span></span></span></span>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn"><a href="../.././Mt/Task/Validation.html#Mt.TaskM.valid">Mt.TaskM.valid</a> (<span class="fn"><span class="fn">mu</span> <a href="../.././Init/Prelude.html#Bind.bind">&gt&gt=</a> <span class="fn">f</span></span>) <span class="fn">r</span> <span class="fn">assuming</span> <span class="fn">motive</span></span></div></div><p>To prove that <code>a >>= f</code> is valid you need to prove that both <code>a</code> and <code>f u</code>
+for all results <code>u</code> are valid.</p><p>In many cases, <code>a</code> does something to prepare <code>f u</code>. Since only <code>f u</code> needs
+to fulfil the final motive, we can choose an arbitrary motive to validate <code>a</code>
+as "intermediate goal".</p><p>To validate <code>f u</code> with the original <code>motive</code>, we can use the fact that the
+intermediate goal <code>motive_u</code> has been ensured by <code>a</code>. Motives use only results
+and reservations, which cannot be changed by other threads. Therefore, they
+stay valid even if other threads become active between <code>a</code> and <code>f u</code>.</p></div></div><div class="decl" id="Mt.TaskM.valid_rmr"><div class="theorem"><div class="gh_link"><a href="https://github.com/mirkootter/lean-mt/blob/027a16555d487e46a0a00611b8039655378dfdd5/Mt/Task/Validation.lean#L110-L123">source</a></div><div class="ink_link"><a href="../.././src/Mt/Task/Validation.html#Mt.TaskM.valid_rmr">ink</a></div><div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a class="break_within" href="../.././Mt/Task/Validation.html#Mt.TaskM.valid_rmr">Mt.TaskM.valid_rmr</a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{spec : <a href="../.././Mt/Reservation.html#Mt.Spec">Mt.Spec</a>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{T : <span class="fn">Type</span>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{f : <span class="fn"><span class="fn"><span class="fn">spec</span>.State</span> → <span class="fn"><span class="fn">T</span> <a href="../.././Init/Prelude.html#Prod">×</a> <span class="fn"><span class="fn">spec</span>.State</span></span></span>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{r : <span class="fn"><span class="fn">spec</span>.Reservation</span>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{assuming : <span class="fn"><span class="fn"><span class="fn">spec</span>.State</span> → <a href="../.././Init/Prelude.html#Bool">Bool</a></span>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{motive : <span class="fn"><span class="fn">T</span> → <span class="fn"><span class="fn"><span class="fn">spec</span>.Reservation</span> → <span class="fn">Prop</span></span></span>}</span></span>
+</span><span class="decl_args">
+<span class="fn">(f_valid : <span class="fn">∀ (<span class="fn">env_r</span> : <span class="fn"><span class="fn">spec</span>.Reservation</span>) (<span class="fn">s</span> : <span class="fn"><span class="fn">spec</span>.State</span>),
+  <span class="fn"><span class="fn"><span class="fn"><span class="fn">assuming</span> <span class="fn">s</span></span> <a href="../.././Init/Prelude.html#Eq">=</a> <a href="../.././Init/Prelude.html#Bool.true">true</a></span> →
+    <span class="fn"><span class="fn"><a href="../.././Mt/Reservation.html#Mt.Spec.validate">Mt.Spec.validate</a> <span class="fn">spec</span> (<span class="fn"><span class="fn">env_r</span> <a href="../.././Init/Prelude.html#HAdd.hAdd">+</a> <span class="fn">r</span></span>) <span class="fn">s</span></span> →
+      <span class="fn">∃ <span class="fn">r'</span>,
+        <span class="fn">let _discr := <span class="fn"><span class="fn">f</span> <span class="fn">s</span></span>;
+        <span class="fn">match <span class="fn"><span class="fn">f</span> <span class="fn">s</span></span> with
+        | <span class="fn">(<span class="fn">t</span>, <span class="fn">s'</span>)</span> =&gt <span class="fn"><span class="fn"><a href="../.././Mt/Reservation.html#Mt.Spec.validate">Mt.Spec.validate</a> <span class="fn">spec</span> (<span class="fn"><span class="fn">env_r</span> <a href="../.././Init/Prelude.html#HAdd.hAdd">+</a> <span class="fn">r'</span></span>) <span class="fn">s'</span></span> <a href="../.././Init/Prelude.html#And">∧</a> <span class="fn"><span class="fn">motive</span> <span class="fn">t</span> <span class="fn">r'</span></span></span></span></span></span></span></span></span>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn"><a href="../.././Mt/Task/Validation.html#Mt.TaskM.valid">Mt.TaskM.valid</a> (<span class="fn"><a href="../.././Mt/Task/Basic.html#Mt.TaskM.atomic_read_modify_read">Mt.TaskM.atomic_read_modify_read</a> <span class="fn">f</span></span>) <span class="fn">r</span> <span class="fn">assuming</span> <span class="fn">motive</span></span></div></div></div></div><div class="decl" id="Mt.TaskM.valid_rm"><div class="theorem"><div class="gh_link"><a href="https://github.com/mirkootter/lean-mt/blob/027a16555d487e46a0a00611b8039655378dfdd5/Mt/Task/Validation.lean#L125-L133">source</a></div><div class="ink_link"><a href="../.././src/Mt/Task/Validation.html#Mt.TaskM.valid_rm">ink</a></div><div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a class="break_within" href="../.././Mt/Task/Validation.html#Mt.TaskM.valid_rm">Mt.TaskM.valid_rm</a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{spec : <a href="../.././Mt/Reservation.html#Mt.Spec">Mt.Spec</a>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{f : <span class="fn"><span class="fn"><span class="fn">spec</span>.State</span> → <span class="fn"><span class="fn">spec</span>.State</span></span>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{r : <span class="fn"><span class="fn">spec</span>.Reservation</span>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{assuming : <span class="fn"><span class="fn"><span class="fn">spec</span>.State</span> → <a href="../.././Init/Prelude.html#Bool">Bool</a></span>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{motive : <span class="fn"><a href="../.././Init/Prelude.html#Unit">Unit</a> → <span class="fn"><span class="fn"><span class="fn">spec</span>.Reservation</span> → <span class="fn">Prop</span></span></span>}</span></span>
+</span><span class="decl_args">
+<span class="fn">(f_valid : <span class="fn">∀ (<span class="fn">env_r</span> : <span class="fn"><span class="fn">spec</span>.Reservation</span>) (<span class="fn">s</span> : <span class="fn"><span class="fn">spec</span>.State</span>),
+  <span class="fn"><span class="fn"><span class="fn"><span class="fn">assuming</span> <span class="fn">s</span></span> <a href="../.././Init/Prelude.html#Eq">=</a> <a href="../.././Init/Prelude.html#Bool.true">true</a></span> →
+    <span class="fn"><span class="fn"><a href="../.././Mt/Reservation.html#Mt.Spec.validate">Mt.Spec.validate</a> <span class="fn">spec</span> (<span class="fn"><span class="fn">env_r</span> <a href="../.././Init/Prelude.html#HAdd.hAdd">+</a> <span class="fn">r</span></span>) <span class="fn">s</span></span> →
+      <span class="fn">∃ <span class="fn">r'</span>,
+        <span class="fn">let s' := <span class="fn"><span class="fn">f</span> <span class="fn">s</span></span>;
+        <span class="fn"><span class="fn"><a href="../.././Mt/Reservation.html#Mt.Spec.validate">Mt.Spec.validate</a> <span class="fn">spec</span> (<span class="fn"><span class="fn">env_r</span> <a href="../.././Init/Prelude.html#HAdd.hAdd">+</a> <span class="fn">r'</span></span>) <span class="fn">s'</span></span> <a href="../.././Init/Prelude.html#And">∧</a> <span class="fn"><span class="fn">motive</span> <a href="../.././Init/Prelude.html#PUnit.unit">PUnit.unit</a> <span class="fn">r'</span></span></span></span></span></span></span></span>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn"><a href="../.././Mt/Task/Validation.html#Mt.TaskM.valid">Mt.TaskM.valid</a> (<span class="fn"><a href="../.././Mt/Task/Basic.html#Mt.TaskM.atomic_read_modify">Mt.TaskM.atomic_read_modify</a> <span class="fn">f</span></span>) <span class="fn">r</span> <span class="fn">assuming</span> <span class="fn">motive</span></span></div></div></div></div><div class="decl" id="Mt.TaskM.valid_read"><div class="theorem"><div class="gh_link"><a href="https://github.com/mirkootter/lean-mt/blob/027a16555d487e46a0a00611b8039655378dfdd5/Mt/Task/Validation.lean#L135-L143">source</a></div><div class="ink_link"><a href="../.././src/Mt/Task/Validation.html#Mt.TaskM.valid_read">ink</a></div><div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a class="break_within" href="../.././Mt/Task/Validation.html#Mt.TaskM.valid_read">Mt.TaskM.valid_read</a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{spec : <a href="../.././Mt/Reservation.html#Mt.Spec">Mt.Spec</a>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{T : <span class="fn">Type</span>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{f : <span class="fn"><span class="fn"><span class="fn">spec</span>.State</span> → <span class="fn">T</span></span>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{r : <span class="fn"><span class="fn">spec</span>.Reservation</span>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{assuming : <span class="fn"><span class="fn"><span class="fn">spec</span>.State</span> → <a href="../.././Init/Prelude.html#Bool">Bool</a></span>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{motive : <span class="fn"><span class="fn">T</span> → <span class="fn"><span class="fn"><span class="fn">spec</span>.Reservation</span> → <span class="fn">Prop</span></span></span>}</span></span>
+</span><span class="decl_args">
+<span class="fn">(f_valid : <span class="fn">∀ (<span class="fn">env_r</span> : <span class="fn"><span class="fn">spec</span>.Reservation</span>) (<span class="fn">s</span> : <span class="fn"><span class="fn">spec</span>.State</span>),
+  <span class="fn"><span class="fn"><span class="fn"><span class="fn">assuming</span> <span class="fn">s</span></span> <a href="../.././Init/Prelude.html#Eq">=</a> <a href="../.././Init/Prelude.html#Bool.true">true</a></span> →
+    <span class="fn"><span class="fn"><a href="../.././Mt/Reservation.html#Mt.Spec.validate">Mt.Spec.validate</a> <span class="fn">spec</span> (<span class="fn"><span class="fn">env_r</span> <a href="../.././Init/Prelude.html#HAdd.hAdd">+</a> <span class="fn">r</span></span>) <span class="fn">s</span></span> →
+      <span class="fn">∃ <span class="fn">r'</span>,
+        <span class="fn">let t := <span class="fn"><span class="fn">f</span> <span class="fn">s</span></span>;
+        <span class="fn"><span class="fn"><a href="../.././Mt/Reservation.html#Mt.Spec.validate">Mt.Spec.validate</a> <span class="fn">spec</span> (<span class="fn"><span class="fn">env_r</span> <a href="../.././Init/Prelude.html#HAdd.hAdd">+</a> <span class="fn">r'</span></span>) <span class="fn">s</span></span> <a href="../.././Init/Prelude.html#And">∧</a> <span class="fn"><span class="fn">motive</span> <span class="fn">t</span> <span class="fn">r'</span></span></span></span></span></span></span></span>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn"><a href="../.././Mt/Task/Validation.html#Mt.TaskM.valid">Mt.TaskM.valid</a> (<span class="fn"><a href="../.././Mt/Task/Basic.html#Mt.TaskM.atomic_read">Mt.TaskM.atomic_read</a> <span class="fn">f</span></span>) <span class="fn">r</span> <span class="fn">assuming</span> <span class="fn">motive</span></span></div></div></div></div><div class="decl" id="Mt.TaskM.valid_assert"><div class="theorem"><div class="gh_link"><a href="https://github.com/mirkootter/lean-mt/blob/027a16555d487e46a0a00611b8039655378dfdd5/Mt/Task/Validation.lean#L145-L159">source</a></div><div class="ink_link"><a href="../.././src/Mt/Task/Validation.html#Mt.TaskM.valid_assert">ink</a></div><div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a class="break_within" href="../.././Mt/Task/Validation.html#Mt.TaskM.valid_assert">Mt.TaskM.valid_assert</a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{spec : <a href="../.././Mt/Reservation.html#Mt.Spec">Mt.Spec</a>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{cond : <span class="fn"><span class="fn"><span class="fn">spec</span>.State</span> → <a href="../.././Init/Prelude.html#Bool">Bool</a></span>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{r : <span class="fn"><span class="fn">spec</span>.Reservation</span>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{assuming : <span class="fn"><span class="fn"><span class="fn">spec</span>.State</span> → <a href="../.././Init/Prelude.html#Bool">Bool</a></span>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{motive : <span class="fn"><a href="../.././Init/Prelude.html#Unit">Unit</a> → <span class="fn"><span class="fn"><span class="fn">spec</span>.Reservation</span> → <span class="fn">Prop</span></span></span>}</span></span>
+</span><span class="decl_args">
+<span class="fn">(motive_holds : <span class="fn"><span class="fn">motive</span> <a href="../.././Init/Prelude.html#PUnit.unit">PUnit.unit</a> <span class="fn">r</span></span>)</span></span>
+<span class="decl_args">
+<span class="fn">(assertion_succeeds : <span class="fn">∀ (<span class="fn">env_r</span> : <span class="fn"><span class="fn">spec</span>.Reservation</span>) (<span class="fn">s</span> : <span class="fn"><span class="fn">spec</span>.State</span>), <span class="fn"><span class="fn"><span class="fn"><span class="fn">assuming</span> <span class="fn">s</span></span> <a href="../.././Init/Prelude.html#Eq">=</a> <a href="../.././Init/Prelude.html#Bool.true">true</a></span> → <span class="fn"><span class="fn"><a href="../.././Mt/Reservation.html#Mt.Spec.validate">Mt.Spec.validate</a> <span class="fn">spec</span> (<span class="fn"><span class="fn">env_r</span> <a href="../.././Init/Prelude.html#HAdd.hAdd">+</a> <span class="fn">r</span></span>) <span class="fn">s</span></span> → <span class="fn"><span class="fn"><span class="fn">cond</span> <span class="fn">s</span></span> <a href="../.././Init/Prelude.html#Eq">=</a> <a href="../.././Init/Prelude.html#Bool.true">true</a></span></span></span></span>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn"><a href="../.././Mt/Task/Validation.html#Mt.TaskM.valid">Mt.TaskM.valid</a> (<span class="fn"><a href="../.././Mt/Task/Basic.html#Mt.TaskM.atomic_assert">Mt.TaskM.atomic_assert</a> <span class="fn">cond</span></span>) <span class="fn">r</span> <span class="fn">assuming</span> <span class="fn">motive</span></span></div></div></div></div><div class="decl" id="Mt.TaskM.valid_blocking_rmr"><div class="theorem"><div class="gh_link"><a href="https://github.com/mirkootter/lean-mt/blob/027a16555d487e46a0a00611b8039655378dfdd5/Mt/Task/Validation.lean#L161-L177">source</a></div><div class="ink_link"><a href="../.././src/Mt/Task/Validation.html#Mt.TaskM.valid_blocking_rmr">ink</a></div><div class="decl_header"><span class="decl_kind">theorem</span>
+<span class="decl_name"><a class="break_within" href="../.././Mt/Task/Validation.html#Mt.TaskM.valid_blocking_rmr">Mt.TaskM.valid_blocking_rmr</a></span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{spec : <a href="../.././Mt/Reservation.html#Mt.Spec">Mt.Spec</a>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{T : <span class="fn">Type</span>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{block_until : <span class="fn"><span class="fn"><span class="fn">spec</span>.State</span> → <a href="../.././Init/Prelude.html#Bool">Bool</a></span>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{f : <span class="fn"><span class="fn"><span class="fn">spec</span>.State</span> → <span class="fn"><span class="fn">T</span> <a href="../.././Init/Prelude.html#Prod">×</a> <span class="fn"><span class="fn">spec</span>.State</span></span></span>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{r : <span class="fn"><span class="fn">spec</span>.Reservation</span>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{assuming : <span class="fn"><span class="fn"><span class="fn">spec</span>.State</span> → <a href="../.././Init/Prelude.html#Bool">Bool</a></span>}</span></span>
+</span><span class="impl_arg"><span class="decl_args">
+<span class="fn">{motive : <span class="fn"><span class="fn">T</span> → <span class="fn"><span class="fn"><span class="fn">spec</span>.Reservation</span> → <span class="fn">Prop</span></span></span>}</span></span>
+</span><span class="decl_args">
+<span class="fn">(f_valid : <span class="fn">∀ (<span class="fn">env_r</span> : <span class="fn"><span class="fn">spec</span>.Reservation</span>) (<span class="fn">s</span> : <span class="fn"><span class="fn">spec</span>.State</span>),
+  <span class="fn"><span class="fn"><span class="fn"><span class="fn">block_until</span> <span class="fn">s</span></span> <a href="../.././Init/Prelude.html#Eq">=</a> <a href="../.././Init/Prelude.html#Bool.true">true</a></span> →
+    <span class="fn"><span class="fn"><a href="../.././Mt/Reservation.html#Mt.Spec.validate">Mt.Spec.validate</a> <span class="fn">spec</span> (<span class="fn"><span class="fn">env_r</span> <a href="../.././Init/Prelude.html#HAdd.hAdd">+</a> <span class="fn">r</span></span>) <span class="fn">s</span></span> →
+      <span class="fn">∃ <span class="fn">r'</span>,
+        <span class="fn">let _discr := <span class="fn"><span class="fn">f</span> <span class="fn">s</span></span>;
+        <span class="fn">match <span class="fn"><span class="fn">f</span> <span class="fn">s</span></span> with
+        | <span class="fn">(<span class="fn">t</span>, <span class="fn">s'</span>)</span> =&gt <span class="fn"><span class="fn"><a href="../.././Mt/Reservation.html#Mt.Spec.validate">Mt.Spec.validate</a> <span class="fn">spec</span> (<span class="fn"><span class="fn">env_r</span> <a href="../.././Init/Prelude.html#HAdd.hAdd">+</a> <span class="fn">r'</span></span>) <span class="fn">s'</span></span> <a href="../.././Init/Prelude.html#And">∧</a> <span class="fn"><span class="fn">motive</span> <span class="fn">t</span> <span class="fn">r'</span></span></span></span></span></span></span></span></span>)</span></span>
+<span class="decl_args"> :</span><div class="decl_type"><span class="fn"><a href="../.././Mt/Task/Validation.html#Mt.TaskM.valid">Mt.TaskM.valid</a> (<span class="fn"><a href="../.././Mt/Task/Basic.html#Mt.TaskM.atomic_blocking_rmr">Mt.TaskM.atomic_blocking_rmr</a> <span class="fn">block_until</span> <span class="fn">f</span></span>) <span class="fn">r</span> <span class="fn">assuming</span> <span class="fn">motive</span></span></div></div></div></div></main>
+<nav class="nav"><iframe src="../.././/navbar.html" class="navframe" frameBorder="0"></iframe></nav></body></html>
